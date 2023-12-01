@@ -1,11 +1,12 @@
-import { Button, ChipDelete, CircularProgress, CssBaseline, FormControl, IconButton, Input, List, ListItem, Sheet, Tooltip, Typography } from '@mui/joy';
-import { useForm, Controller } from 'react-hook-form';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
-type Todo = {
-  id: number|string
-  title: string
-}
+import {
+    Button, ChipDelete, CircularProgress, CssBaseline, FormControl, IconButton, Input, List,
+    ListItem, Sheet, Tooltip, Typography
+} from '@mui/joy';
+
+import { Todo, useTodo } from './todos';
 
 type TodoItemProps = {
   text: string
@@ -39,40 +40,21 @@ function App() {
     }
   })
 
-  const [error, setError] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
-  const [todos, setTodos] = useState<Todo[]>([
-    { id: 1, title: 'Dummy' },
-    { id: 2, title: 'Yummy' },
-    { id: 3, title: 'Gummy' },
-    { id: 4, title: 'Tummy' },
-  ])
+  const todo = useTodo()
+  const todos = todo.query.data ?? []
+  const {
+    isPending,
+  } = todo.query
 
   function addTodo(data: TodoFormInput): void {
     const { title } = data 
 
-    if (title.length <= 0) {
-      setError(true)
-      return
-    }
-
-    const todo: Todo = {
-      id: crypto.randomUUID(),
-      title,
-    }
-
-    setLoading(true)
-    setTodos(prev => [...prev, todo])
-
-    setTimeout(() => {
-      setError(false)
-      setLoading(false)
-      reset()
-    }, 1000)
+    todo.addMutation.mutate({ title })
+    reset()
   }
 
   function deleteTodo(id: Todo['id']): void {
-    setTodos(prev => prev.filter(item => item.id !== id))
+    todo.deleteMutation.mutate(id)
   }
 
   return (
@@ -92,7 +74,7 @@ function App() {
         }}>
           <Typography level='h4' component='h1'>Yummy List</Typography>
           <form onSubmit={handleSubmit(addTodo)}>
-            <FormControl error={error} disabled={loading}>
+            <FormControl error={todo.addMutation.isError} disabled={todo.addMutation.isPending}>
               <Controller 
                 name='title'
                 control={control}
@@ -103,8 +85,8 @@ function App() {
                     placeholder='Enter yummy food' 
                     endDecorator={
                       <>
-                        {!loading && <Button variant='soft' type='submit'>Add</Button>}
-                        {loading && <IconButton disabled><CircularProgress /></IconButton>}
+                        {!todo.addMutation.isPending && <Button variant='soft' type='submit'>Add</Button>}
+                        {todo.addMutation.isPending && <IconButton disabled><CircularProgress /></IconButton>}
                       </>
                     }
                     />
@@ -116,12 +98,17 @@ function App() {
             variant='outlined' 
             sx={{ borderRadius: 'sm', overflow: 'auto', maxHeight: 300 }}
           >
-            {todos.length <= 0 && (
+            {isPending && (
+              <Sheet sx={{ textAlign: 'center', p: '1em', color: 'GrayText' }}>
+                <CircularProgress />
+              </Sheet>
+            )}
+            {!isPending && todos.length <= 0 && (
               <Sheet sx={{ textAlign: 'center', p: '1em', color: 'GrayText' }}>
                 Empty tummy
               </Sheet>
               )}
-            {todos.length > 0 && (
+            {!isPending && todos.length > 0 && (
               <List>
                 {todos.map(todo => (
                   <TodoItem 
