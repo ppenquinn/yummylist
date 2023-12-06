@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 const API = import.meta.env.VITE_API_URL || ''
 
@@ -12,6 +12,12 @@ export type TodoCreateDto = {
   title: Todo['title']
 }
 
+export type UseTodoOptions = {
+  addMutation?: {
+    onError?: (error: string) => void
+  }
+}
+
 const todoApi = {
   findTodos: (): Promise<Todo[]> => 
     axios.get(`${API}/todos`).then(res => res.data),
@@ -21,7 +27,7 @@ const todoApi = {
     axios.delete(`${API}/todos/${id}`).then(res => res.data),
 }
 
-export const useTodo = () => {
+export const useTodo = (options?: UseTodoOptions) => {
   const queryKey = ['todos']
   const queryClient = useQueryClient()
 
@@ -37,6 +43,11 @@ export const useTodo = () => {
       queryClient.setQueriesData({ 
         queryKey 
       }, [...todos, data])
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError(error: AxiosError<any, any>) {
+      console.error(error.response?.data)
+      options?.addMutation?.onError && options?.addMutation?.onError(error.response?.data?.message.join(''))
     },
   })
 

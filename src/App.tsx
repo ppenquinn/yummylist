@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import {
     Button, ChipDelete, CircularProgress, CssBaseline, FormControl, IconButton, Input, List,
-    ListItem, Sheet, Tooltip, Typography
+    ListItem, Sheet, Snackbar, Tooltip, Typography
 } from '@mui/joy';
 
 import { Todo, useTodo } from './todos';
@@ -34,13 +34,20 @@ const TodoItem: FC<TodoItemProps> = ({ text, onDelete }) => (
 )
 
 function App() {
+  const [error, setError] = useState("")
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       title: ''
     }
   })
 
-  const todo = useTodo()
+  const todo = useTodo({
+    addMutation: {
+      onError(error) {
+        setError(error)
+      }
+    }
+  })
   const todos = todo.query.data ?? []
   const {
     isPending,
@@ -72,6 +79,28 @@ function App() {
           borderRadius: 'sm',
           boxShadow: 'md',
         }}>
+          {error.length > 0 && (
+            <Snackbar
+              autoHideDuration={5000}
+              variant='soft'
+              color='warning'
+              size='lg'
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              open={error.length > 0}
+              onClose={() => setError("")}
+              endDecorator={
+                <Button
+                  onClick={() => setError("")}
+                  size='sm'
+                  variant='soft'
+                  color='warning'
+                >
+                  Close
+                </Button>
+              }>
+                {`${error.charAt(0).toUpperCase()}${error.slice(1)}`}
+            </Snackbar>
+          )}
           <Typography level='h4' component='h1'>Yummy List</Typography>
           <form onSubmit={handleSubmit(addTodo)}>
             <FormControl error={todo.addMutation.isError} disabled={todo.addMutation.isPending}>
