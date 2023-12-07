@@ -1,14 +1,3 @@
-// import { render, screen } from "@testing-library/react";
-// import App from "../App";
-
-// describe("App", () => {
-//   test("renders Yummy List to be in DOM", () => {
-//     render(<App />);
-// const linkElement = screen.getByText(/Yummy List/i);
-// expect(linkElement).toBeInTheDocument();
-//   });
-// });
-
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import App from "../App";
