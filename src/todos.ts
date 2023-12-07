@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 
-const API = import.meta.env.VITE_API_URL || ''
+const API = process.env.VITE_API_URL || ''
 
 export type Todo = {
   id: number|string
