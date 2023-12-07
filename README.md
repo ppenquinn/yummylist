@@ -47,6 +47,12 @@ jobs:
       # Change from `run: npm ci && npm run build` to:
       - run: npm ci 
       - run: VITE_API_URL=${{ secrets.VITE_API_URL }} npm run build
+      - run: npm run coverage
+
+      - uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -71,10 +77,26 @@ jobs:
       # Change from `run: npm ci && npm run build` to:
       - run: npm ci 
       - run: VITE_API_URL=${{ secrets.VITE_API_URL }} npm run build
+      - run: npm run coverage
+
+      - uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ILUMIN_YUMMY_LIST }}'
           projectId: ilumin-yummy-list
+```
+
+
+Update sonar-project.properties
+```yml
+
+sonar.exclusions=build/**,public/**,**.json,**/**.css,**/**.test.tsx,src/index.tsx,src/reportWebVitals.ts,src/setupTests.ts
+sonar.javascript.lcov.reportPaths=./coverage/lcov.info
+sonar.projectKey=[YOUR_PROJECT_KEY]
+sonar.organization=[YOUR_ORGANIZATION]
 ```
