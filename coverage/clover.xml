@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1701934539110" clover="3.2.0">
+  <project timestamp="1701934539110" name="All files">
+    <metrics statements="45" coveredstatements="27" conditionals="22" coveredconditionals="14" methods="22" coveredmethods="4" elements="89" coveredelements="45" complexity="0" loc="45" ncloc="45" packages="1" files="2" classes="2"/>
+    <file name="App.tsx" path="/Users/natchanonpornprasatpol/Desktop/testDel/yummy-list/src/App.tsx">
+      <metrics statements="25" coveredstatements="14" conditionals="16" coveredconditionals="10" methods="11" coveredmethods="2"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="9" count="1" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="25" count="0" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="31" count="0" type="stmt"/>
+      <line num="37" count="1" type="stmt"/>
+      <line num="38" count="1" type="stmt"/>
+      <line num="44" count="1" type="stmt"/>
+      <line num="47" count="0" type="stmt"/>
+      <line num="51" count="1" type="cond" truecount="2" falsecount="0"/>
+      <line num="54" count="1" type="stmt"/>
+      <line num="57" count="0" type="stmt"/>
+      <line num="59" count="0" type="stmt"/>
+      <line num="60" count="0" type="stmt"/>
+      <line num="64" count="0" type="stmt"/>
+      <line num="67" count="1" type="stmt"/>
+      <line num="90" count="0" type="stmt"/>
+      <line num="93" count="0" type="stmt"/>
+      <line num="111" count="1" type="stmt"/>
+      <line num="143" count="0" type="stmt"/>
+      <line num="146" count="0" type="stmt"/>
+      <line num="158" count="1" type="stmt"/>
+    </file>
+    <file name="todos.ts" path="/Users/natchanonpornprasatpol/Desktop/testDel/yummy-list/src/todos.ts">
+      <metrics statements="20" coveredstatements="13" conditionals="6" coveredconditionals="4" methods="11" coveredmethods="2"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="4" count="1" type="cond" truecount="2" falsecount="0"/>
+      <line num="21" count="1" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="25" count="0" type="stmt"/>
+      <line num="27" count="0" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="32" count="1" type="stmt"/>
+      <line num="34" count="1" type="stmt"/>
+      <line num="38" count="1" type="cond" truecount="2" falsecount="0"/>
+      <line num="40" count="1" type="stmt"/>
+      <line num="43" count="0" type="stmt"/>
+      <line num="49" count="0" type="stmt"/>
+      <line num="50" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="54" count="1" type="stmt"/>
+      <line num="57" count="0" type="stmt"/>
+      <line num="59" count="0" type="stmt"/>
+      <line num="63" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
