@@ -91,10 +91,9 @@ jobs:
           projectId: ilumin-yummy-list
 ```
 
-
 Update sonar-project.properties
-```yml
 
+```properties
 sonar.exclusions=build/**,public/**,**.json,**/**.css,**/**.test.tsx,src/index.tsx,src/reportWebVitals.ts,src/setupTests.ts
 sonar.javascript.lcov.reportPaths=./coverage/lcov.info
 sonar.projectKey=[YOUR_PROJECT_KEY]
